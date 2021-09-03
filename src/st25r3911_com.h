@@ -9,8 +9,8 @@
   *
   *        www.st.com/mix_myliberty
   *
-  * Unless required by applicable law or agreed to in writing, software 
-  * distributed under the License is distributed on an "AS IS" BASIS, 
+  * Unless required by applicable law or agreed to in writing, software
+  * distributed under the License is distributed on an "AS IS" BASIS,
   * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied,
   * AND SPECIFICALLY DISCLAIMING THE IMPLIED WARRANTIES OF MERCHANTABILITY,
   * FITNESS FOR A PARTICULAR PURPOSE, AND NON-INFRINGEMENT.
@@ -38,7 +38,7 @@
  * - Load ST25R3911 FIFO with data: #st25r3911WriteFifo
  * - Read from ST25R3911 FIFO: #st25r3911ReadFifo
  * - Execute direct command: #st25r3911ExecuteCommand
- * 
+ *
  *
  * \addtogroup RFAL
  * @{
@@ -50,11 +50,11 @@
  * \addtogroup ST25R3911
  * \brief RFAL ST25R3911 Driver
  * @{
- * 
+ *
  * \addtogroup ST25R3911_Com
  * \brief RFAL ST25R3911 Communication
  * @{
- * 
+ *
  */
 
 #ifndef ST25R3911_COM_H
@@ -553,7 +553,7 @@
   * @}
   *
   * @}
-  * 
+  *
   * @}
   */
 

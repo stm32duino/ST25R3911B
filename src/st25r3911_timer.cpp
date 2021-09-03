@@ -9,8 +9,8 @@
   *
   *        www.st.com/mix_myliberty
   *
-  * Unless required by applicable law or agreed to in writing, software 
-  * distributed under the License is distributed on an "AS IS" BASIS, 
+  * Unless required by applicable law or agreed to in writing, software
+  * distributed under the License is distributed on an "AS IS" BASIS,
   * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied,
   * AND SPECIFICALLY DISCLAIMING THE IMPLIED WARRANTIES OF MERCHANTABILITY,
   * FITNESS FOR A PARTICULAR PURPOSE, AND NON-INFRINGEMENT.
@@ -59,56 +59,55 @@
 
 
 /*******************************************************************************/
-uint32_t RfalRfST25R3911BClass::timerCalculateTimer( uint16_t time )
-{  
+uint32_t RfalRfST25R3911BClass::timerCalculateTimer(uint16_t time)
+{
   return (millis() + time);
 }
 
 
 /*******************************************************************************/
-bool RfalRfST25R3911BClass::timerIsExpired( uint32_t timer )
+bool RfalRfST25R3911BClass::timerIsExpired(uint32_t timer)
 {
   uint32_t uDiff;
   int32_t sDiff;
-  
+
   uDiff = (timer - millis());   /* Calculate the diff between the timers */
   sDiff = uDiff;                            /* Convert the diff to a signed var      */
-  /* Having done this has two side effects: 
+  /* Having done this has two side effects:
    * 1) all differences smaller than -(2^31) ms (~25d) will become positive
    *    Signaling not expired: acceptable!
    * 2) Time roll-over case will be handled correctly: super!
    */
-  
+
   /* Check if the given timer has expired already */
-  if( sDiff < 0 )
-  {
+  if (sDiff < 0) {
     return true;
   }
-  
+
   return false;
 }
 
 
 /*******************************************************************************/
-void RfalRfST25R3911BClass::timerDelay( uint16_t tOut )
+void RfalRfST25R3911BClass::timerDelay(uint16_t tOut)
 {
   uint32_t t;
-  
+
   /* Calculate the timer and wait blocking until is running */
-  t = timerCalculateTimer( tOut );
-  while( (!timerIsExpired(t)) );
+  t = timerCalculateTimer(tOut);
+  while ((!timerIsExpired(t)));
 }
 
 
 /*******************************************************************************/
-void RfalRfST25R3911BClass::timerStopwatchStart( void )
+void RfalRfST25R3911BClass::timerStopwatchStart(void)
 {
   timerStopwatchTick = millis();
 }
 
 
 /*******************************************************************************/
-uint32_t RfalRfST25R3911BClass::timerStopwatchMeasure( void )
+uint32_t RfalRfST25R3911BClass::timerStopwatchMeasure(void)
 {
   return (uint32_t)(millis() - timerStopwatchTick);
 }

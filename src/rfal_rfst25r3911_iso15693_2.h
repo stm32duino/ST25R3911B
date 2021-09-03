@@ -9,8 +9,8 @@
   *
   *        www.st.com/mix_myliberty
   *
-  * Unless required by applicable law or agreed to in writing, software 
-  * distributed under the License is distributed on an "AS IS" BASIS, 
+  * Unless required by applicable law or agreed to in writing, software
+  * distributed under the License is distributed on an "AS IS" BASIS,
   * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied,
   * AND SPECIFICALLY DISCLAIMING THE IMPLIED WARRANTIES OF MERCHANTABILITY,
   * FITNESS FOR A PARTICULAR PURPOSE, AND NON-INFRINGEMENT.
@@ -27,7 +27,7 @@
  *
  */
 /*!
- * 
+ *
  */
 
 #ifndef RFAL_ISO_15693_2_H
@@ -46,27 +46,25 @@
 ******************************************************************************
 */
 /*! Enum holding possible VCD codings  */
-typedef enum
-{
-    ISO15693_VCD_CODING_1_4,
-    ISO15693_VCD_CODING_1_256
-}iso15693VcdCoding_t;
+typedef enum {
+  ISO15693_VCD_CODING_1_4,
+  ISO15693_VCD_CODING_1_256
+} iso15693VcdCoding_t;
 
 /*! Enum holding possible VICC datarates */
 
 /*! Configuration parameter used by #iso15693PhyConfigure  */
-typedef struct
-{
-    iso15693VcdCoding_t coding;           /*!< desired VCD coding                                       */
-    uint32_t                speedMode;    /*!< 0: normal mode, 1: 2^1 = x2 Fast mode, 2 : 2^2 = x4 mode, 3 : 2^3 = x8 mode - all rx pulse numbers and times are divided by 1,2,4,8 */
-}iso15693PhyConfig_t;
+typedef struct {
+  iso15693VcdCoding_t coding;           /*!< desired VCD coding                                       */
+  uint32_t                speedMode;    /*!< 0: normal mode, 1: 2^1 = x2 Fast mode, 2 : 2^2 = x4 mode, 3 : 2^3 = x8 mode - all rx pulse numbers and times are divided by 1,2,4,8 */
+} iso15693PhyConfig_t;
 
 /*! Parameters how the stream mode should work */
 struct iso15693StreamConfig {
-    uint8_t useBPSK;              /*!< 0: subcarrier, 1:BPSK */
-    uint8_t din;                  /*!< the divider for the in subcarrier frequency: fc/2^din  */
-    uint8_t dout;                 /*!< the divider for the in subcarrier frequency fc/2^dout */
-    uint8_t report_period_length; /*!< the length of the reporting period 2^report_period_length*/
+  uint8_t useBPSK;              /*!< 0: subcarrier, 1:BPSK */
+  uint8_t din;                  /*!< the divider for the in subcarrier frequency: fc/2^din  */
+  uint8_t dout;                 /*!< the divider for the in subcarrier frequency fc/2^dout */
+  uint8_t report_period_length; /*!< the length of the reporting period 2^report_period_length*/
 };
 /*
 ******************************************************************************

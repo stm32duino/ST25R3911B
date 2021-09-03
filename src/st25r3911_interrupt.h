@@ -9,8 +9,8 @@
   *
   *        www.st.com/mix_myliberty
   *
-  * Unless required by applicable law or agreed to in writing, software 
-  * distributed under the License is distributed on an "AS IS" BASIS, 
+  * Unless required by applicable law or agreed to in writing, software
+  * distributed under the License is distributed on an "AS IS" BASIS,
   * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied,
   * AND SPECIFICALLY DISCLAIMING THE IMPLIED WARRANTIES OF MERCHANTABILITY,
   * FITNESS FOR A PARTICULAR PURPOSE, AND NON-INFRINGEMENT.
@@ -36,7 +36,7 @@
  * \addtogroup ST25R3911
  * \brief RFAL ST25R3911 Driver
  * @{
- * 
+ *
  * \addtogroup ST25R3911_Interrupt
  * \brief RFAL ST25R3911 Interrupt
  * @{
@@ -95,13 +95,12 @@
 
 
 /*! Holds current and previous interrupt callback pointer as well as current Interrupt status and mask */
-typedef struct
-{
-    void      (*prevCallback)(void); /*!< call back function for 3911 interrupt               */
-    void      (*callback)(void);     /*!< call back function for 3911 interrupt               */
-    uint32_t  status;                /*!< latest interrupt status                             */
-    uint32_t  mask;                  /*!< Interrupt mask. Negative mask = ST25R3911 mask regs */
-}t_st25r3911Interrupt;
+typedef struct {
+  void (*prevCallback)(void);      /*!< call back function for 3911 interrupt               */
+  void (*callback)(void);          /*!< call back function for 3911 interrupt               */
+  uint32_t  status;                /*!< latest interrupt status                             */
+  uint32_t  mask;                  /*!< Interrupt mask. Negative mask = ST25R3911 mask regs */
+} t_st25r3911Interrupt;
 
 /*
 ******************************************************************************
@@ -118,6 +117,6 @@ typedef struct
   * @}
   *
   * @}
-  * 
+  *
   * @}
   */

@@ -9,8 +9,8 @@
   *
   *        www.st.com/mix_myliberty
   *
-  * Unless required by applicable law or agreed to in writing, software 
-  * distributed under the License is distributed on an "AS IS" BASIS, 
+  * Unless required by applicable law or agreed to in writing, software
+  * distributed under the License is distributed on an "AS IS" BASIS,
   * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied,
   * AND SPECIFICALLY DISCLAIMING THE IMPLIED WARRANTIES OF MERCHANTABILITY,
   * FITNESS FOR A PARTICULAR PURPOSE, AND NON-INFRINGEMENT.
@@ -40,11 +40,11 @@
  * \addtogroup ST25R3911
  * \brief RFAL ST25R3911 Driver
  * @{
- * 
+ *
  * \addtogroup ST25R3911_Driver
  * \brief RFAL ST25R3911 Driver
  * @{
- * 
+ *
  */
 
 #ifndef ST25R3911_H
@@ -65,10 +65,10 @@
 
 /*! Parameters how the stream mode should work */
 struct st25r3911StreamConfig {
-    uint8_t useBPSK;                                    /*!< 0: subcarrier, 1:BPSK                                      */
-    uint8_t din;                                        /*!< the divider for the in subcarrier frequency: fc/2^din      */
-    uint8_t dout;                                       /*!< the divider for the in subcarrier frequency fc/2^dout      */
-    uint8_t report_period_length;                       /*!< the length of the reporting period 2^report_period_length  */
+  uint8_t useBPSK;                                    /*!< 0: subcarrier, 1:BPSK                                      */
+  uint8_t din;                                        /*!< the divider for the in subcarrier frequency: fc/2^din      */
+  uint8_t dout;                                       /*!< the divider for the in subcarrier frequency fc/2^dout      */
+  uint8_t report_period_length;                       /*!< the length of the reporting period 2^report_period_length  */
 };
 
 
@@ -144,7 +144,7 @@ struct st25r3911StreamConfig {
 /*! Checks if CRC is configured to be in FIFO                               */
 #define st25r3911IsCRCinFIFO( )      ( st25r3911CheckReg(ST25R3911_REG_AUX, ST25R3911_REG_AUX_crc_2_fifo, ST25R3911_REG_AUX_crc_2_fifo) )
 
-/*! Checks if External Filed is detected by reading ST25R3911 External Field  
+/*! Checks if External Filed is detected by reading ST25R3911 External Field
  * Detector output                                                          */
 #define st25r3911IsExtFieldOn()      ( st25r3911CheckReg(ST25R3911_REG_AUX_DISPLAY, ST25R3911_REG_AUX_DISPLAY_efd_o, ST25R3911_REG_AUX_DISPLAY_efd_o ) )
 
@@ -175,7 +175,7 @@ struct st25r3911StreamConfig {
   * @}
   *
   * @}
-  * 
+  *
   * @}
   */
 

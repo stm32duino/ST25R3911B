@@ -9,8 +9,8 @@
   *
   *        www.st.com/mix_myliberty
   *
-  * Unless required by applicable law or agreed to in writing, software 
-  * distributed under the License is distributed on an "AS IS" BASIS, 
+  * Unless required by applicable law or agreed to in writing, software
+  * distributed under the License is distributed on an "AS IS" BASIS,
   * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied,
   * AND SPECIFICALLY DISCLAIMING THE IMPLIED WARRANTIES OF MERCHANTABILITY,
   * FITNESS FOR A PARTICULAR PURPOSE, AND NON-INFRINGEMENT.
@@ -24,8 +24,8 @@
  *  \author SRA
  *
  *  \brief RF Chip Analog Configuration Settings
- *  
- *  
+ *
+ *
  * \addtogroup RFAL
  * @{
  *
@@ -36,7 +36,7 @@
  * \addtogroup AnalogConfig
  * \brief RFAL Analog Config Module
  * @{
- * 
+ *
  */
 
 #ifndef RFAL_RFST25R3911_ANALOG_CONFIG_H
@@ -177,17 +177,17 @@ typedef uint8_t  rfalAnalogConfigNum;        /*!< Number of Analog settings for 
 
 /*! Struct that contain the Register-Mask-Value set. Make sure that the whole structure size is even and unaligned! */
 typedef struct {
-    rfalAnalogConfigRegAddr addr;  /*!< Register Address    */
-    rfalAnalogConfigRegMask mask;  /*!< Register Mask Value */
-    rfalAnalogConfigRegVal  val;   /*!< Register Value      */
+  rfalAnalogConfigRegAddr addr;  /*!< Register Address    */
+  rfalAnalogConfigRegMask mask;  /*!< Register Mask Value */
+  rfalAnalogConfigRegVal  val;   /*!< Register Value      */
 } rfalAnalogConfigRegAddrMaskVal;
 
 
 /*! Struct that represents the Analog Configs */
 typedef struct {
-    uint8_t                        id[sizeof(rfalAnalogConfigId)]; /*!< Configuration ID                   */
-    rfalAnalogConfigNum            num;                            /*!< Number of Config Sets to follow    */
-    rfalAnalogConfigRegAddrMaskVal regSet[];                       /*!< Register-Mask-Value sets           */ /*  PRQA S 1060 # MISRA 18.7 - Flexible Array Members are the only meaningful way of denoting a variable length input buffer which follows a fixed header structure. */
+  uint8_t                        id[sizeof(rfalAnalogConfigId)]; /*!< Configuration ID                   */
+  rfalAnalogConfigNum            num;                            /*!< Number of Config Sets to follow    */
+  rfalAnalogConfigRegAddrMaskVal regSet[];                       /*!< Register-Mask-Value sets           */ /*  PRQA S 1060 # MISRA 18.7 - Flexible Array Members are the only meaningful way of denoting a variable length input buffer which follows a fixed header structure. */
 } rfalAnalogConfig;
 
 

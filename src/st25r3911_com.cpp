@@ -9,8 +9,8 @@
   *
   *        www.st.com/mix_myliberty
   *
-  * Unless required by applicable law or agreed to in writing, software 
-  * distributed under the License is distributed on an "AS IS" BASIS, 
+  * Unless required by applicable law or agreed to in writing, software
+  * distributed under the License is distributed on an "AS IS" BASIS,
   * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied,
   * AND SPECIFICALLY DISCLAIMING THE IMPLIED WARRANTIES OF MERCHANTABILITY,
   * FITNESS FOR A PARTICULAR PURPOSE, AND NON-INFRINGEMENT.
@@ -71,275 +71,268 @@
 * GLOBAL FUNCTIONS
 ******************************************************************************
 */
-void RfalRfST25R3911BClass::st25r3911ReadRegister(uint8_t reg, uint8_t* value)
-{ 
-    uint8_t  buf[2];
-  
-    buf[0] = (reg | ST25R3911_READ_MODE);
-    buf[1] = 0;
-
-    dev_spi->beginTransaction(SPISettings(spi_speed, MSBFIRST, SPI_MODE1));
-
-    digitalWrite(cs_pin, LOW);
-  
-    dev_spi->transfer((void *)buf, 2);
-
-    digitalWrite(cs_pin, HIGH);
-    dev_spi->endTransaction();
-  
-    if(value != NULL)
-    {
-      *value = buf[1];
-    }
-
-    return;
-}
-
-
-void RfalRfST25R3911BClass::st25r3911ReadMultipleRegisters(uint8_t reg, uint8_t* values, uint8_t length)
-{ 
-    if (length > 0U)
-    {
-        /* Setting Transaction Parameters */
-        dev_spi->beginTransaction(SPISettings(spi_speed, MSBFIRST, SPI_MODE1));
-        digitalWrite(cs_pin, LOW);
-
-        /* Since the result comes one byte later, let's first transmit the adddress with discarding the result */
-        dev_spi->transfer((reg | ST25R3911_READ_MODE));
-
-        dev_spi->transfer((void *)values, length);
-
-        digitalWrite(cs_pin, HIGH);
-        dev_spi->endTransaction();
-    }
-    
-    return;
-}
-
-void RfalRfST25R3911BClass::st25r3911ReadTestRegister(uint8_t reg, uint8_t* value)
+void RfalRfST25R3911BClass::st25r3911ReadRegister(uint8_t reg, uint8_t *value)
 {
-    uint8_t  buf[3];
+  uint8_t  buf[2];
 
-    buf[0] = ST25R3911_CMD_TEST_ACCESS;
-    buf[1] = (reg | ST25R3911_READ_MODE);
-    buf[2] = 0x00;
+  buf[0] = (reg | ST25R3911_READ_MODE);
+  buf[1] = 0;
 
+  dev_spi->beginTransaction(SPISettings(spi_speed, MSBFIRST, SPI_MODE1));
+
+  digitalWrite(cs_pin, LOW);
+
+  dev_spi->transfer((void *)buf, 2);
+
+  digitalWrite(cs_pin, HIGH);
+  dev_spi->endTransaction();
+
+  if (value != NULL) {
+    *value = buf[1];
+  }
+
+  return;
+}
+
+
+void RfalRfST25R3911BClass::st25r3911ReadMultipleRegisters(uint8_t reg, uint8_t *values, uint8_t length)
+{
+  if (length > 0U) {
     /* Setting Transaction Parameters */
     dev_spi->beginTransaction(SPISettings(spi_speed, MSBFIRST, SPI_MODE1));
     digitalWrite(cs_pin, LOW);
-  
-    dev_spi->transfer((void *)buf, 3);
-    
-    if(value != NULL)
-    {
-      *value = buf[2];
-    }
-    
+
+    /* Since the result comes one byte later, let's first transmit the adddress with discarding the result */
+    dev_spi->transfer((reg | ST25R3911_READ_MODE));
+
+    dev_spi->transfer((void *)values, length);
+
     digitalWrite(cs_pin, HIGH);
-
     dev_spi->endTransaction();
+  }
 
-    return;
+  return;
+}
+
+void RfalRfST25R3911BClass::st25r3911ReadTestRegister(uint8_t reg, uint8_t *value)
+{
+  uint8_t  buf[3];
+
+  buf[0] = ST25R3911_CMD_TEST_ACCESS;
+  buf[1] = (reg | ST25R3911_READ_MODE);
+  buf[2] = 0x00;
+
+  /* Setting Transaction Parameters */
+  dev_spi->beginTransaction(SPISettings(spi_speed, MSBFIRST, SPI_MODE1));
+  digitalWrite(cs_pin, LOW);
+
+  dev_spi->transfer((void *)buf, 3);
+
+  if (value != NULL) {
+    *value = buf[2];
+  }
+
+  digitalWrite(cs_pin, HIGH);
+
+  dev_spi->endTransaction();
+
+  return;
 }
 
 void RfalRfST25R3911BClass::st25r3911WriteTestRegister(uint8_t reg, uint8_t value)
 {
-    uint8_t  buf[3];
+  uint8_t  buf[3];
 
-    buf[0] = ST25R3911_CMD_TEST_ACCESS;
-    buf[1] = (reg | ST25R3911_WRITE_MODE);
-    buf[2] = value;
-  
-    /* Setting Transaction Parameters */
-    dev_spi->beginTransaction(SPISettings(spi_speed, MSBFIRST, SPI_MODE1));
-    digitalWrite(cs_pin, LOW);
-  
-    dev_spi->transfer((void *)buf, 3);
+  buf[0] = ST25R3911_CMD_TEST_ACCESS;
+  buf[1] = (reg | ST25R3911_WRITE_MODE);
+  buf[2] = value;
 
-    digitalWrite(cs_pin, HIGH);
+  /* Setting Transaction Parameters */
+  dev_spi->beginTransaction(SPISettings(spi_speed, MSBFIRST, SPI_MODE1));
+  digitalWrite(cs_pin, LOW);
 
-    dev_spi->endTransaction();
+  dev_spi->transfer((void *)buf, 3);
 
-    return;
+  digitalWrite(cs_pin, HIGH);
+
+  dev_spi->endTransaction();
+
+  return;
 }
 
 void RfalRfST25R3911BClass::st25r3911WriteRegister(uint8_t reg, uint8_t value)
 {
-    uint8_t buf[2];
+  uint8_t buf[2];
 
-    buf[0] = reg | ST25R3911_WRITE_MODE;
-    buf[1] = value;
+  buf[0] = reg | ST25R3911_WRITE_MODE;
+  buf[1] = value;
 
-    dev_spi->beginTransaction(SPISettings(spi_speed, MSBFIRST, SPI_MODE1));
+  dev_spi->beginTransaction(SPISettings(spi_speed, MSBFIRST, SPI_MODE1));
 
-    digitalWrite(cs_pin, LOW);
-  
-    dev_spi->transfer((void *)buf, 2);
+  digitalWrite(cs_pin, LOW);
 
-    digitalWrite(cs_pin, HIGH);
-    dev_spi->endTransaction();
+  dev_spi->transfer((void *)buf, 2);
 
-    return;
+  digitalWrite(cs_pin, HIGH);
+  dev_spi->endTransaction();
+
+  return;
 }
 
-void RfalRfST25R3911BClass::st25r3911ClrRegisterBits( uint8_t reg, uint8_t clr_mask )
+void RfalRfST25R3911BClass::st25r3911ClrRegisterBits(uint8_t reg, uint8_t clr_mask)
 {
-    uint8_t tmp;
+  uint8_t tmp;
 
-    st25r3911ReadRegister(reg, &tmp);
-    tmp &= ~clr_mask;
-    st25r3911WriteRegister(reg, tmp);
-    
-    return;
+  st25r3911ReadRegister(reg, &tmp);
+  tmp &= ~clr_mask;
+  st25r3911WriteRegister(reg, tmp);
+
+  return;
 }
 
 
-void RfalRfST25R3911BClass::st25r3911SetRegisterBits( uint8_t reg, uint8_t set_mask )
+void RfalRfST25R3911BClass::st25r3911SetRegisterBits(uint8_t reg, uint8_t set_mask)
 {
-    uint8_t tmp;
+  uint8_t tmp;
 
-    st25r3911ReadRegister(reg, &tmp);
-    tmp |= set_mask;
-    st25r3911WriteRegister(reg, tmp);
-    
-    return;
+  st25r3911ReadRegister(reg, &tmp);
+  tmp |= set_mask;
+  st25r3911WriteRegister(reg, tmp);
+
+  return;
 }
 
 void RfalRfST25R3911BClass::st25r3911ChangeRegisterBits(uint8_t reg, uint8_t valueMask, uint8_t value)
 {
-    st25r3911ModifyRegister(reg, valueMask, (valueMask & value) );
+  st25r3911ModifyRegister(reg, valueMask, (valueMask & value));
 }
 
 void RfalRfST25R3911BClass::st25r3911ModifyRegister(uint8_t reg, uint8_t clr_mask, uint8_t set_mask)
 {
-    uint8_t tmp;
+  uint8_t tmp;
 
-    st25r3911ReadRegister(reg, &tmp);
+  st25r3911ReadRegister(reg, &tmp);
 
-    /* mask out the bits we don't want to change */
-    tmp &= ~clr_mask;
-    /* set the new value */
-    tmp |= set_mask;
-    st25r3911WriteRegister(reg, tmp);
+  /* mask out the bits we don't want to change */
+  tmp &= ~clr_mask;
+  /* set the new value */
+  tmp |= set_mask;
+  st25r3911WriteRegister(reg, tmp);
 
-    return;
+  return;
 }
 
-void RfalRfST25R3911BClass::st25r3911ChangeTestRegisterBits( uint8_t reg, uint8_t valueMask, uint8_t value )
+void RfalRfST25R3911BClass::st25r3911ChangeTestRegisterBits(uint8_t reg, uint8_t valueMask, uint8_t value)
 {
-    uint8_t    rdVal;
-    uint8_t    wrVal;
-    
-    /* Read current reg value */
-    st25r3911ReadTestRegister(reg, &rdVal);
-    
-    /* Compute new value */
-    wrVal  = (rdVal & ~valueMask);
-    wrVal |= (value & valueMask);
-    
-    /* Write new reg value */
-    st25r3911WriteTestRegister(reg, wrVal );
-    
-    return;
+  uint8_t    rdVal;
+  uint8_t    wrVal;
+
+  /* Read current reg value */
+  st25r3911ReadTestRegister(reg, &rdVal);
+
+  /* Compute new value */
+  wrVal  = (rdVal & ~valueMask);
+  wrVal |= (value & valueMask);
+
+  /* Write new reg value */
+  st25r3911WriteTestRegister(reg, wrVal);
+
+  return;
 }
 
-void RfalRfST25R3911BClass::st25r3911WriteMultipleRegisters(uint8_t reg, const uint8_t* values, uint8_t length)
+void RfalRfST25R3911BClass::st25r3911WriteMultipleRegisters(uint8_t reg, const uint8_t *values, uint8_t length)
 {
-    if (length > 0U)
-    {
-        /* Setting Transaction Parameters */
-        dev_spi->beginTransaction(SPISettings(spi_speed, MSBFIRST, SPI_MODE1));
-        digitalWrite(cs_pin, LOW);
-
-        /* Since the result comes one byte later, let's first transmit the adddress with discarding the result */
-        dev_spi->transfer((reg | ST25R3911_WRITE_MODE));
-
-        dev_spi->transfer((void *)values, length);
-
-        digitalWrite(cs_pin, HIGH);
-        dev_spi->endTransaction();
-    }
-    
-    return;
-}
-
-
-void RfalRfST25R3911BClass::st25r3911WriteFifo(const uint8_t* values, uint8_t length)
-{
-    if (length > 0U)
-    {
-        /* Setting Transaction Parameters */
-        dev_spi->beginTransaction(SPISettings(spi_speed, MSBFIRST, SPI_MODE1));
-        digitalWrite(cs_pin, LOW);
-
-        /* Since the result comes one byte later, let's first transmit the adddress with discarding the result */
-        dev_spi->transfer(ST25R3911_FIFO_LOAD);
-
-        dev_spi->transfer((void *)values, length);
-
-        digitalWrite(cs_pin, HIGH);
-        dev_spi->endTransaction();
-    }
-
-    return;
-}
-
-void RfalRfST25R3911BClass::st25r3911ReadFifo(uint8_t* buf, uint8_t length)
-{
-    if(length > 0U)
-    {
-        /* Setting Transaction Parameters */
-        dev_spi->beginTransaction(SPISettings(spi_speed, MSBFIRST, SPI_MODE1));
-        digitalWrite(cs_pin, LOW);
-
-        /* Since the result comes one byte later, let's first transmit the adddress with discarding the result */
-        dev_spi->transfer(ST25R3911_FIFO_READ);
-
-        dev_spi->transfer((void *)buf, length);
-
-        digitalWrite(cs_pin, HIGH);
-        dev_spi->endTransaction();
-    }
-
-    return;
-}
-
-void RfalRfST25R3911BClass::st25r3911ExecuteCommand( uint8_t cmd )
-{
+  if (length > 0U) {
+    /* Setting Transaction Parameters */
     dev_spi->beginTransaction(SPISettings(spi_speed, MSBFIRST, SPI_MODE1));
-
     digitalWrite(cs_pin, LOW);
-  
-    dev_spi->transfer((cmd | ST25R3911_CMD_MODE));
+
+    /* Since the result comes one byte later, let's first transmit the adddress with discarding the result */
+    dev_spi->transfer((reg | ST25R3911_WRITE_MODE));
+
+    dev_spi->transfer((void *)values, length);
 
     digitalWrite(cs_pin, HIGH);
     dev_spi->endTransaction();
+  }
 
-    return;
+  return;
+}
+
+
+void RfalRfST25R3911BClass::st25r3911WriteFifo(const uint8_t *values, uint8_t length)
+{
+  if (length > 0U) {
+    /* Setting Transaction Parameters */
+    dev_spi->beginTransaction(SPISettings(spi_speed, MSBFIRST, SPI_MODE1));
+    digitalWrite(cs_pin, LOW);
+
+    /* Since the result comes one byte later, let's first transmit the adddress with discarding the result */
+    dev_spi->transfer(ST25R3911_FIFO_LOAD);
+
+    dev_spi->transfer((void *)values, length);
+
+    digitalWrite(cs_pin, HIGH);
+    dev_spi->endTransaction();
+  }
+
+  return;
+}
+
+void RfalRfST25R3911BClass::st25r3911ReadFifo(uint8_t *buf, uint8_t length)
+{
+  if (length > 0U) {
+    /* Setting Transaction Parameters */
+    dev_spi->beginTransaction(SPISettings(spi_speed, MSBFIRST, SPI_MODE1));
+    digitalWrite(cs_pin, LOW);
+
+    /* Since the result comes one byte later, let's first transmit the adddress with discarding the result */
+    dev_spi->transfer(ST25R3911_FIFO_READ);
+
+    dev_spi->transfer((void *)buf, length);
+
+    digitalWrite(cs_pin, HIGH);
+    dev_spi->endTransaction();
+  }
+
+  return;
+}
+
+void RfalRfST25R3911BClass::st25r3911ExecuteCommand(uint8_t cmd)
+{
+  dev_spi->beginTransaction(SPISettings(spi_speed, MSBFIRST, SPI_MODE1));
+
+  digitalWrite(cs_pin, LOW);
+
+  dev_spi->transfer((cmd | ST25R3911_CMD_MODE));
+
+  digitalWrite(cs_pin, HIGH);
+  dev_spi->endTransaction();
+
+  return;
 }
 
 
 void RfalRfST25R3911BClass::st25r3911ExecuteCommands(const uint8_t *cmds, uint8_t length)
 {
-    dev_spi->beginTransaction(SPISettings(spi_speed, MSBFIRST, SPI_MODE1));
+  dev_spi->beginTransaction(SPISettings(spi_speed, MSBFIRST, SPI_MODE1));
 
-    digitalWrite(cs_pin, LOW);
-  
-    dev_spi->transfer((void *)cmds, length);
+  digitalWrite(cs_pin, LOW);
 
-    digitalWrite(cs_pin, HIGH);
-    dev_spi->endTransaction();
+  dev_spi->transfer((void *)cmds, length);
 
-    return;
+  digitalWrite(cs_pin, HIGH);
+  dev_spi->endTransaction();
+
+  return;
 }
 
-bool RfalRfST25R3911BClass::st25r3911IsRegValid( uint8_t reg )
+bool RfalRfST25R3911BClass::st25r3911IsRegValid(uint8_t reg)
 {
-    if( !(( (int16_t)reg >= (int16_t)ST25R3911_REG_IO_CONF1) && (reg <= ST25R3911_REG_CAPACITANCE_MEASURE_RESULT)) &&  (reg != ST25R3911_REG_IC_IDENTITY)  )
-    {
-        return false;
-    }
-    return true;
+  if (!(((int16_t)reg >= (int16_t)ST25R3911_REG_IO_CONF1) && (reg <= ST25R3911_REG_CAPACITANCE_MEASURE_RESULT)) && (reg != ST25R3911_REG_IC_IDENTITY)) {
+    return false;
+  }
+  return true;
 }
 
 /*
