@@ -94,9 +94,9 @@ struct st25r3911StreamConfig {
 #define ST25R3911_CMD_RESPONSE_RF_COLLISION_0  0xCAU    /*!< NFC transmit with Response RF Collision Avoidance with n=0 */
 #define ST25R3911_CMD_NORMAL_NFC_MODE          0xCBU    /*!< NFC switch to normal NFC mode                              */
 #define ST25R3911_CMD_ANALOG_PRESET            0xCCU    /*!< Analog Preset                                              */
-#define ST25R3911_CMD_MASK_RECEIVE_DATA        0xD0U    /*!< Mask recive data                                           */
-#define ST25R3911_CMD_UNMASK_RECEIVE_DATA      0xD1U    /*!< Unmask recive data                                         */
-#define ST25R3911_CMD_MEASURE_AMPLITUDE        0xD3U    /*!< Measure singal amplitude on RFI inputs                     */
+#define ST25R3911_CMD_MASK_RECEIVE_DATA        0xD0U    /*!< Mask receive data                                           */
+#define ST25R3911_CMD_UNMASK_RECEIVE_DATA      0xD1U    /*!< Unmask receive data                                         */
+#define ST25R3911_CMD_MEASURE_AMPLITUDE        0xD3U    /*!< Measure signal amplitude on RFI inputs                     */
 #define ST25R3911_CMD_SQUELCH                  0xD4U    /*!< Squelch                                                    */
 #define ST25R3911_CMD_CLEAR_SQUELCH            0xD5U    /*!< Clear Squelch                                              */
 #define ST25R3911_CMD_ADJUST_REGULATORS        0xD6U    /*!< Adjust regulators                                          */

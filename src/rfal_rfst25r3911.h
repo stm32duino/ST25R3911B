@@ -49,7 +49,7 @@
 
 /*
  ******************************************************************************
- * ENABLE SWITCHS
+ * ENABLE SWITCHES
  ******************************************************************************
  */
 
@@ -114,7 +114,7 @@ typedef struct {
 
 /*! Struct that holds counters to control the FIFO on Tx and Rx                                                                          */
 typedef struct {
-  uint16_t                expWL;       /*!< The amount of bytes expected to be Tx when a WL interrupt occours                          */
+  uint16_t                expWL;       /*!< The amount of bytes expected to be Tx when a WL interrupt occurs                          */
   uint16_t                bytesTotal;  /*!< Total bytes to be transmitted OR the total bytes received                                  */
   uint16_t                bytesWritten;/*!< Amount of bytes already written on FIFO (Tx) OR read (RX) from FIFO and written on rxBuffer*/
   uint8_t                 status[ST25R3911_FIFO_STATUS_LEN];   /*!< FIFO Status Registers                                              */
@@ -311,7 +311,7 @@ typedef struct {
  * ISO15693 2000  8.4  t1 MIN = 4192/fc
  * ISO15693 2009  9.1  t1 MIN = 4320/fc
  * Digital 2.1 B.5 FDTV,LISTEN,MIN  = 4310/fc
- * Set FDT Listen one step earlier than on the more recent spec versions for greater interoprability
+ * Set FDT Listen one step earlier than on the more recent spec versions for greater interoperability
  */
 #define RFAL_FDT_LISTEN_V_ADJUSTMENT    128U
 
@@ -468,7 +468,7 @@ class RfalRfST25R3911BClass : public RfalRfClass {
      *
      * \param[in]  more: 0x00 indicates it is last Configuration ID settings;
      *                   0x01 indicates more Configuration ID setting(s) are coming.
-     * \param[in]  *config: reference to the configuration list of current Configuraiton ID.
+     * \param[in]  *config: reference to the configuration list of current Configuration ID.
      *
      * \return ERR_PARAM   : if Configuration ID or parameter is invalid
      * \return ERR_NOMEM   : if LUT is full
@@ -875,8 +875,8 @@ class RfalRfST25R3911BClass : public RfalRfClass {
      *  \param[in] ignoreBits : number of bits in the beginning where collisions will be ignored
      *  \param[in] picopassMode :  if set to true, the decoding will be according to Picopass
      *
-     *  \return ERR_COLLISION : collision occured, data uncorrect
-     *  \return ERR_CRC : CRC error, data uncorrect
+     *  \return ERR_COLLISION : collision occurred, data incorrect
+     *  \return ERR_CRC : CRC error, data incorrect
      *  \return ERR_TIMEOUT : timeout waiting for data.
      *  \return ERR_NONE : No error.
      *
@@ -975,7 +975,7 @@ class RfalRfST25R3911BClass : public RfalRfClass {
      *
      *  On this function the power level is measured in maximum load conditions and
      *  the regulated voltage reference is set to 250mV below this level.
-     *  Execution of this function lasts arround 5ms.
+     *  Execution of this function lasts around 5ms.
      *
      *  The regulated voltages will be set to the result of Adjust Regulators
      *
@@ -1134,7 +1134,7 @@ class RfalRfST25R3911BClass : public RfalRfClass {
      *
      *  This function executes sets and immediately start the no response timer
      *   to the defines value
-     *   This is used when needs to add more time before timeout whitout Tx
+     *   This is used when needs to add more time before timeout without Tx
      *
      *  \param nrt_64fcs : no response time in 64/fc = 4.72us
      *                    completion interrupt
@@ -1470,7 +1470,7 @@ class RfalRfST25R3911BClass : public RfalRfClass {
      *  auto-increment feature. That is, after each write the address pointer
      *  inside the ST25R3911 gets incremented automatically.
      *
-     *  \param[in]  reg: Address of the frist register to write.
+     *  \param[in]  reg: Address of the first register to write.
      *  \param[in]  values: pointer to a buffer containing the values to be written.
      *  \param[in]  length: Number of values to be written.
      *
@@ -1486,7 +1486,7 @@ class RfalRfST25R3911BClass : public RfalRfClass {
      *  auto-increment feature. That is, after each read the address pointer
      *  inside the ST25R3911 gets incremented automatically.
      *
-     *  \param[in]  reg: Address of the frist register to read from.
+     *  \param[in]  reg: Address of the first register to read from.
      *  \param[in]  values: pointer to a buffer where the result shall be written to.
      *  \param[in]  length: Number of registers to be read out.
      *

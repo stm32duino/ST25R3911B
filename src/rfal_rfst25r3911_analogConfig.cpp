@@ -23,7 +23,7 @@
  *
  *  \author SRA
  *
- *  \brief Funcitons to manage and set analog settings.
+ *  \brief Functions to manage and set analog settings.
  *
  */
 

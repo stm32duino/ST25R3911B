@@ -839,7 +839,7 @@ ReturnCode RfalRfST25R3911BClass::rfalStartTransceive(const rfalTransceiveContex
       /* Clear FIFO, Clear and Enable the Interrupts */
       rfalPrepareTransceive();
 
-      /* Disable our field upon a Rx reEnable on AP2P */
+      /* Disable our field upon a Rx re-Enable on AP2P */
       if (rfalIsModeActiveComm(gRFAL.mode)) {
         st25r3911TxOff();
       }
@@ -1026,14 +1026,14 @@ void RfalRfST25R3911BClass::rfalErrorHandling(void)
   if (gRFAL.conf.eHandling == RFAL_ERRORHANDLING_EMVCO) {
     /*******************************************************************************/
     /* EMD Handling - NFC Forum Digital 1.1  4.1.1.1 ; EMVCo 2.6  4.9.2            */
-    /* ReEnable the receiver on frames with a length < 4 bytes, upon:              */
+    /* Re-Enable the receiver on frames with a length < 4 bytes, upon:              */
     /*   - Collision or Framing error detected                                     */
     /*   - Residual bits are detected (hard framing error)                         */
     /*   - Parity error                                                            */
     /*   - CRC error                                                               */
     /*******************************************************************************/
 
-    /* Check if reception has incompete bytes or parity error */
+    /* Check if reception has incomplete bytes or parity error */
     rxHasIncParError = (rfalFIFOStatusIsIncompleteByte() ? true : rfalFIFOStatusIsMissingPar());     /* MISRA 13.5 */
 
     /* In case there are residual bits decrement FIFO bytes */
@@ -1045,7 +1045,7 @@ void RfalRfST25R3911BClass::rfalErrorHandling(void)
         ((gRFAL.TxRx.status == ERR_RF_COLLISION) || (gRFAL.TxRx.status == ERR_FRAMING) ||
          (gRFAL.TxRx.status == ERR_PAR)          || (gRFAL.TxRx.status == ERR_CRC)     ||
          rxHasIncParError)) {
-      /* Ignore this reception, ReEnable receiver */
+      /* Ignore this reception, Re-Enable receiver */
       st25r3911ExecuteCommands(reEnRx, sizeof(reEnRx));
 
       rfalFIFOStatusClear();
@@ -1224,7 +1224,7 @@ void RfalRfST25R3911BClass::rfalTransceiveTx(void)
   uint16_t          tmp;
   ReturnCode        ret;
 
-  /* Supress warning in case NFC-V feature is disabled */
+  /* Suppress warning in case NFC-V feature is disabled */
   ret = ERR_NONE;
   NO_WARNING(ret);
 
@@ -2042,7 +2042,7 @@ ReturnCode RfalRfST25R3911BClass::rfalISO14443ATransceiveShortFrame(rfal14443ASh
   /* Disable anti collision again */
   st25r3911ClrRegisterBits(ST25R3911_REG_ISO14443A_NFC, ST25R3911_REG_ISO14443A_NFC_antcl);
 
-  /* ReEnable CRC on Rx */
+  /* Re-Enable CRC on Rx */
   st25r3911ClrRegisterBits(ST25R3911_REG_AUX, ST25R3911_REG_AUX_no_crc_rx);
 
   return ret;
@@ -2067,7 +2067,7 @@ ReturnCode RfalRfST25R3911BClass::rfalISO14443ATransceiveAnticollisionFrame(uint
   }
 
   /*******************************************************************************/
-  /* Set speficic Analog Config for Anticolission if needed */
+  /* Set specific Analog Config for Anticolission if needed */
   rfalSetAnalogConfig((RFAL_ANALOG_CONFIG_POLL | RFAL_ANALOG_CONFIG_TECH_NFCA | RFAL_ANALOG_CONFIG_BITRATE_COMMON | RFAL_ANALOG_CONFIG_ANTICOL));
 
 
@@ -2138,7 +2138,7 @@ ReturnCode RfalRfST25R3911BClass::rfalISO14443ATransceiveAnticollisionFrame(uint
   /* Disable anti collision again */
   st25r3911ClrRegisterBits(ST25R3911_REG_ISO14443A_NFC, ST25R3911_REG_ISO14443A_NFC_antcl);
 
-  /* ReEnable CRC on Rx */
+  /* Re-Enable CRC on Rx */
   st25r3911ClrRegisterBits(ST25R3911_REG_AUX, ST25R3911_REG_AUX_no_crc_rx);
   /*******************************************************************************/
 
@@ -2163,7 +2163,7 @@ ReturnCode RfalRfST25R3911BClass::rfalISO15693TransceiveAnticollisionFrame(uint8
   }
 
   /*******************************************************************************/
-  /* Set speficic Analog Config for Anticolission if needed */
+  /* Set specific Analog Config for Anticolission if needed */
   rfalSetAnalogConfig((RFAL_ANALOG_CONFIG_POLL | RFAL_ANALOG_CONFIG_TECH_NFCV | RFAL_ANALOG_CONFIG_BITRATE_COMMON | RFAL_ANALOG_CONFIG_ANTICOL));
 
 
@@ -2289,7 +2289,7 @@ ReturnCode RfalRfST25R3911BClass::rfalFeliCaPoll(rfalFeliCaPollSlots slots, uint
         /* Upon timeout the full Poll Delay + (Slot time)*(nbSlots) has expired */
         timeout = true;
       } else {
-        /* Reception done, reEnabled Rx for following Slot */
+        /* Reception done, re-Enabled Rx for following Slot */
         st25r3911ExecuteCommand(ST25R3911_CMD_UNMASK_RECEIVE_DATA);
         st25r3911ExecuteCommand(ST25R3911_CMD_CLEAR_SQUELCH);
 

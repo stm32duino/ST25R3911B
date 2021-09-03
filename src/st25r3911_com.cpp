@@ -102,7 +102,7 @@ void RfalRfST25R3911BClass::st25r3911ReadMultipleRegisters(uint8_t reg, uint8_t 
     dev_spi->beginTransaction(SPISettings(spi_speed, MSBFIRST, SPI_MODE1));
     digitalWrite(cs_pin, LOW);
 
-    /* Since the result comes one byte later, let's first transmit the adddress with discarding the result */
+    /* Since the result comes one byte later, let's first transmit the address with discarding the result */
     dev_spi->transfer((reg | ST25R3911_READ_MODE));
 
     dev_spi->transfer((void *)values, length);
@@ -247,7 +247,7 @@ void RfalRfST25R3911BClass::st25r3911WriteMultipleRegisters(uint8_t reg, const u
     dev_spi->beginTransaction(SPISettings(spi_speed, MSBFIRST, SPI_MODE1));
     digitalWrite(cs_pin, LOW);
 
-    /* Since the result comes one byte later, let's first transmit the adddress with discarding the result */
+    /* Since the result comes one byte later, let's first transmit the address with discarding the result */
     dev_spi->transfer((reg | ST25R3911_WRITE_MODE));
 
     dev_spi->transfer((void *)values, length);
@@ -267,7 +267,7 @@ void RfalRfST25R3911BClass::st25r3911WriteFifo(const uint8_t *values, uint8_t le
     dev_spi->beginTransaction(SPISettings(spi_speed, MSBFIRST, SPI_MODE1));
     digitalWrite(cs_pin, LOW);
 
-    /* Since the result comes one byte later, let's first transmit the adddress with discarding the result */
+    /* Since the result comes one byte later, let's first transmit the address with discarding the result */
     dev_spi->transfer(ST25R3911_FIFO_LOAD);
 
     dev_spi->transfer((void *)values, length);
@@ -286,7 +286,7 @@ void RfalRfST25R3911BClass::st25r3911ReadFifo(uint8_t *buf, uint8_t length)
     dev_spi->beginTransaction(SPISettings(spi_speed, MSBFIRST, SPI_MODE1));
     digitalWrite(cs_pin, LOW);
 
-    /* Since the result comes one byte later, let's first transmit the adddress with discarding the result */
+    /* Since the result comes one byte later, let's first transmit the address with discarding the result */
     dev_spi->transfer(ST25R3911_FIFO_READ);
 
     dev_spi->transfer((void *)buf, length);
