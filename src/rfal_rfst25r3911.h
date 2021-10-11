@@ -1152,10 +1152,10 @@ class RfalRfST25R3911BClass : public RfalRfClass {
      *
      *  \param[in] FieldONCmd  : Field ON command to be executed ST25R3911_CMD_INITIAL_RF_COLLISION
      *                           or ST25R3911_CMD_RESPONSE_RF_COLLISION_0/N
-     *  \param[in] pdThreshold : Peer Detection Threshold  (ST25R3916_REG_FIELD_THRESHOLD_trg_xx)
-     *                           0xff : don't set Threshold (ST25R3916_THRESHOLD_DO_NOT_SET)
-     *  \param[in] caThreshold : Collision Avoidance Threshold (ST25R3916_REG_FIELD_THRESHOLD_rfe_xx)
-     *                           0xff : don't set Threshold (ST25R3916_THRESHOLD_DO_NOT_SET)
+     *  \param[in] pdThreshold : Peer Detection Threshold  (ST25R3911_REG_FIELD_THRESHOLD_trg_xx)
+     *                           0xff : don't set Threshold (ST25R3911_THRESHOLD_DO_NOT_SET)
+     *  \param[in] caThreshold : Collision Avoidance Threshold (ST25R3911_REG_FIELD_THRESHOLD_rfe_xx)
+     *                           0xff : don't set Threshold (ST25R3911_THRESHOLD_DO_NOT_SET)
      *  \param[in] nTRFW       : Number of TRFW
      *
      *  \return ERR_NONE : no collision detected
@@ -1446,7 +1446,7 @@ class RfalRfST25R3911BClass : public RfalRfClass {
      *  \brief  Changes the given bits on a ST25R3911 Test register
      *
      *  This function is used if only a particular bits should be changed within
-     *  an ST25R3916 register.
+     *  an ST25R3911 register.
      *
      *  \param[in]  reg: Address of the Test register to change.
      *  \param[in]  valueMask: bitmask of bits to be changed
