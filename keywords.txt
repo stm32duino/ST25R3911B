@@ -123,7 +123,6 @@ st25r3911SetRegisterBits	KEYWORD2
 st25r3911ChangeRegisterBits	KEYWORD2
 st25r3911ReadTestRegister	KEYWORD2
 st25r3911WriteTestRegister	KEYWORD2
-
 st25r3911ModifyRegister	KEYWORD2
 st25r3911ChangeTestRegisterBits	KEYWORD2
 st25r3911WriteMultipleRegisters	KEYWORD2
