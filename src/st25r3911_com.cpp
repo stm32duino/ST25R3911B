@@ -242,6 +242,12 @@ void RfalRfST25R3911BClass::st25r3911ChangeTestRegisterBits(uint8_t reg, uint8_t
 
 void RfalRfST25R3911BClass::st25r3911WriteMultipleRegisters(uint8_t reg, const uint8_t *values, uint8_t length)
 {
+  uint8_t  tx[256];
+
+  if (values != NULL) {
+    (void)memcpy(tx, values, length);
+  }
+
   if (length > 0U) {
     /* Setting Transaction Parameters */
     dev_spi->beginTransaction(SPISettings(spi_speed, MSBFIRST, SPI_MODE1));
@@ -250,7 +256,7 @@ void RfalRfST25R3911BClass::st25r3911WriteMultipleRegisters(uint8_t reg, const u
     /* Since the result comes one byte later, let's first transmit the address with discarding the result */
     dev_spi->transfer((reg | ST25R3911_WRITE_MODE));
 
-    dev_spi->transfer((void *)values, length);
+    dev_spi->transfer((void *)tx, length);
 
     digitalWrite(cs_pin, HIGH);
     dev_spi->endTransaction();
@@ -262,6 +268,12 @@ void RfalRfST25R3911BClass::st25r3911WriteMultipleRegisters(uint8_t reg, const u
 
 void RfalRfST25R3911BClass::st25r3911WriteFifo(const uint8_t *values, uint8_t length)
 {
+  uint8_t  tx[256];
+
+  if (values != NULL) {
+    (void)memcpy(tx, values, length);
+  }
+
   if (length > 0U) {
     /* Setting Transaction Parameters */
     dev_spi->beginTransaction(SPISettings(spi_speed, MSBFIRST, SPI_MODE1));
@@ -270,7 +282,7 @@ void RfalRfST25R3911BClass::st25r3911WriteFifo(const uint8_t *values, uint8_t le
     /* Since the result comes one byte later, let's first transmit the address with discarding the result */
     dev_spi->transfer(ST25R3911_FIFO_LOAD);
 
-    dev_spi->transfer((void *)values, length);
+    dev_spi->transfer((void *)tx, length);
 
     digitalWrite(cs_pin, HIGH);
     dev_spi->endTransaction();
@@ -315,11 +327,17 @@ void RfalRfST25R3911BClass::st25r3911ExecuteCommand(uint8_t cmd)
 
 void RfalRfST25R3911BClass::st25r3911ExecuteCommands(const uint8_t *cmds, uint8_t length)
 {
+  uint8_t  tx[256];
+
+  if (cmds != NULL) {
+    (void)memcpy(tx, cmds, length);
+  }
+
   dev_spi->beginTransaction(SPISettings(spi_speed, MSBFIRST, SPI_MODE1));
 
   digitalWrite(cs_pin, LOW);
 
-  dev_spi->transfer((void *)cmds, length);
+  dev_spi->transfer((void *)tx, length);
 
   digitalWrite(cs_pin, HIGH);
   dev_spi->endTransaction();
