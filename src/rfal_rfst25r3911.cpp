@@ -48,6 +48,7 @@ RfalRfST25R3911BClass::RfalRfST25R3911BClass(SPIClass *spi, int cs_pin, int int_
   timerStopwatchTick = 0;
   isr_pending = false;
   bus_busy = false;
+  irq_handler = NULL;
 }
 
 
@@ -55,6 +56,11 @@ ReturnCode RfalRfST25R3911BClass::rfalInitialize(void)
 {
   pinMode(cs_pin, OUTPUT);
   digitalWrite(cs_pin, HIGH);
+
+  pinMode(int_pin, INPUT);
+  Callback<void()>::func = std::bind(&RfalRfST25R3911BClass::st25r3911Isr, this);
+  irq_handler = static_cast<ST25R3911BIrqHandler>(Callback<void()>::callback);
+  attachInterrupt(int_pin, irq_handler, RISING);
 
   rfalAnalogConfigInitialize();              /* Initialize RFAL's Analog Configs */
 
@@ -213,6 +219,10 @@ ReturnCode RfalRfST25R3911BClass::rfalDeinitialize(void)
   rfalSetAnalogConfig((RFAL_ANALOG_CONFIG_TECH_CHIP | RFAL_ANALOG_CONFIG_CHIP_DEINIT));
 
   gRFAL.state = RFAL_STATE_IDLE;
+
+  detachInterrupt(int_pin);
+  irq_handler = NULL;
+
   return ERR_NONE;
 }
 
