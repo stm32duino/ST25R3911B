@@ -77,10 +77,14 @@ void RfalRfST25R3911BClass::st25r3911InitInterrupts(void)
 
 void RfalRfST25R3911BClass::st25r3911Isr(void)
 {
-  st25r3911CheckForReceivedInterrupts();
+  if (!isBusBusy()) {
+    st25r3911CheckForReceivedInterrupts();
 
-  if (NULL != st25r3911interrupt.callback) {
-    st25r3911interrupt.callback();
+    if (NULL != st25r3911interrupt.callback) {
+      st25r3911interrupt.callback();
+    }
+  } else {
+    setISRPending();
   }
 }
 

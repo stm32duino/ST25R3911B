@@ -75,6 +75,8 @@ void RfalRfST25R3911BClass::st25r3911ReadRegister(uint8_t reg, uint8_t *value)
 {
   uint8_t  buf[2];
 
+  bus_busy = true;
+
   buf[0] = (reg | ST25R3911_READ_MODE);
   buf[1] = 0;
 
@@ -91,6 +93,12 @@ void RfalRfST25R3911BClass::st25r3911ReadRegister(uint8_t reg, uint8_t *value)
     *value = buf[1];
   }
 
+  bus_busy = false;
+  if (isr_pending) {
+    st25r3911Isr();
+    isr_pending = false;
+  }
+
   return;
 }
 
@@ -98,6 +106,7 @@ void RfalRfST25R3911BClass::st25r3911ReadRegister(uint8_t reg, uint8_t *value)
 void RfalRfST25R3911BClass::st25r3911ReadMultipleRegisters(uint8_t reg, uint8_t *values, uint8_t length)
 {
   if (length > 0U) {
+    bus_busy = true;
     /* Setting Transaction Parameters */
     dev_spi->beginTransaction(SPISettings(spi_speed, MSBFIRST, SPI_MODE1));
     digitalWrite(cs_pin, LOW);
@@ -109,6 +118,12 @@ void RfalRfST25R3911BClass::st25r3911ReadMultipleRegisters(uint8_t reg, uint8_t 
 
     digitalWrite(cs_pin, HIGH);
     dev_spi->endTransaction();
+
+    bus_busy = false;
+    if (isr_pending) {
+      st25r3911Isr();
+      isr_pending = false;
+    }
   }
 
   return;
@@ -117,6 +132,8 @@ void RfalRfST25R3911BClass::st25r3911ReadMultipleRegisters(uint8_t reg, uint8_t 
 void RfalRfST25R3911BClass::st25r3911ReadTestRegister(uint8_t reg, uint8_t *value)
 {
   uint8_t  buf[3];
+
+  bus_busy = true;
 
   buf[0] = ST25R3911_CMD_TEST_ACCESS;
   buf[1] = (reg | ST25R3911_READ_MODE);
@@ -136,12 +153,20 @@ void RfalRfST25R3911BClass::st25r3911ReadTestRegister(uint8_t reg, uint8_t *valu
 
   dev_spi->endTransaction();
 
+  bus_busy = false;
+  if (isr_pending) {
+    st25r3911Isr();
+    isr_pending = false;
+  }
+
   return;
 }
 
 void RfalRfST25R3911BClass::st25r3911WriteTestRegister(uint8_t reg, uint8_t value)
 {
   uint8_t  buf[3];
+
+  bus_busy = true;
 
   buf[0] = ST25R3911_CMD_TEST_ACCESS;
   buf[1] = (reg | ST25R3911_WRITE_MODE);
@@ -157,12 +182,20 @@ void RfalRfST25R3911BClass::st25r3911WriteTestRegister(uint8_t reg, uint8_t valu
 
   dev_spi->endTransaction();
 
+  bus_busy = false;
+  if (isr_pending) {
+    st25r3911Isr();
+    isr_pending = false;
+  }
+
   return;
 }
 
 void RfalRfST25R3911BClass::st25r3911WriteRegister(uint8_t reg, uint8_t value)
 {
   uint8_t buf[2];
+
+  bus_busy = true;
 
   buf[0] = reg | ST25R3911_WRITE_MODE;
   buf[1] = value;
@@ -175,6 +208,12 @@ void RfalRfST25R3911BClass::st25r3911WriteRegister(uint8_t reg, uint8_t value)
 
   digitalWrite(cs_pin, HIGH);
   dev_spi->endTransaction();
+
+  bus_busy = false;
+  if (isr_pending) {
+    st25r3911Isr();
+    isr_pending = false;
+  }
 
   return;
 }
@@ -249,6 +288,7 @@ void RfalRfST25R3911BClass::st25r3911WriteMultipleRegisters(uint8_t reg, const u
   }
 
   if (length > 0U) {
+    bus_busy = true;
     /* Setting Transaction Parameters */
     dev_spi->beginTransaction(SPISettings(spi_speed, MSBFIRST, SPI_MODE1));
     digitalWrite(cs_pin, LOW);
@@ -260,6 +300,12 @@ void RfalRfST25R3911BClass::st25r3911WriteMultipleRegisters(uint8_t reg, const u
 
     digitalWrite(cs_pin, HIGH);
     dev_spi->endTransaction();
+
+    bus_busy = false;
+    if (isr_pending) {
+      st25r3911Isr();
+      isr_pending = false;
+    }
   }
 
   return;
@@ -275,6 +321,7 @@ void RfalRfST25R3911BClass::st25r3911WriteFifo(const uint8_t *values, uint8_t le
   }
 
   if (length > 0U) {
+    bus_busy = true;
     /* Setting Transaction Parameters */
     dev_spi->beginTransaction(SPISettings(spi_speed, MSBFIRST, SPI_MODE1));
     digitalWrite(cs_pin, LOW);
@@ -286,6 +333,12 @@ void RfalRfST25R3911BClass::st25r3911WriteFifo(const uint8_t *values, uint8_t le
 
     digitalWrite(cs_pin, HIGH);
     dev_spi->endTransaction();
+
+    bus_busy = false;
+    if (isr_pending) {
+      st25r3911Isr();
+      isr_pending = false;
+    }
   }
 
   return;
@@ -294,6 +347,7 @@ void RfalRfST25R3911BClass::st25r3911WriteFifo(const uint8_t *values, uint8_t le
 void RfalRfST25R3911BClass::st25r3911ReadFifo(uint8_t *buf, uint8_t length)
 {
   if (length > 0U) {
+    bus_busy = true;
     /* Setting Transaction Parameters */
     dev_spi->beginTransaction(SPISettings(spi_speed, MSBFIRST, SPI_MODE1));
     digitalWrite(cs_pin, LOW);
@@ -305,6 +359,12 @@ void RfalRfST25R3911BClass::st25r3911ReadFifo(uint8_t *buf, uint8_t length)
 
     digitalWrite(cs_pin, HIGH);
     dev_spi->endTransaction();
+
+    bus_busy = false;
+    if (isr_pending) {
+      st25r3911Isr();
+      isr_pending = false;
+    }
   }
 
   return;
@@ -312,6 +372,7 @@ void RfalRfST25R3911BClass::st25r3911ReadFifo(uint8_t *buf, uint8_t length)
 
 void RfalRfST25R3911BClass::st25r3911ExecuteCommand(uint8_t cmd)
 {
+  bus_busy = true;
   dev_spi->beginTransaction(SPISettings(spi_speed, MSBFIRST, SPI_MODE1));
 
   digitalWrite(cs_pin, LOW);
@@ -320,6 +381,12 @@ void RfalRfST25R3911BClass::st25r3911ExecuteCommand(uint8_t cmd)
 
   digitalWrite(cs_pin, HIGH);
   dev_spi->endTransaction();
+
+  bus_busy = false;
+  if (isr_pending) {
+    st25r3911Isr();
+    isr_pending = false;
+  }
 
   return;
 }
@@ -333,6 +400,8 @@ void RfalRfST25R3911BClass::st25r3911ExecuteCommands(const uint8_t *cmds, uint8_
     (void)memcpy(tx, cmds, length);
   }
 
+  bus_busy = true;
+
   dev_spi->beginTransaction(SPISettings(spi_speed, MSBFIRST, SPI_MODE1));
 
   digitalWrite(cs_pin, LOW);
@@ -341,6 +410,12 @@ void RfalRfST25R3911BClass::st25r3911ExecuteCommands(const uint8_t *cmds, uint8_
 
   digitalWrite(cs_pin, HIGH);
   dev_spi->endTransaction();
+
+  bus_busy = false;
+  if (isr_pending) {
+    st25r3911Isr();
+    isr_pending = false;
+  }
 
   return;
 }

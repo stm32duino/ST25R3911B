@@ -1805,6 +1805,8 @@ class RfalRfST25R3911BClass : public RfalRfClass {
     rfalAnalogConfigNum rfalAnalogConfigSearch(rfalAnalogConfigId configId, uint16_t *configOffset);
     uint16_t rfalCrcUpdateCcitt(uint16_t crcSeed, uint8_t dataByte);
     ReturnCode st25r3911ExecuteCommandAndGetResult(uint8_t cmd, uint8_t resreg, uint8_t sleeptime, uint8_t *result);
+    void setISRPending(void);
+    bool isBusBusy(void);
 
     SPIClass *dev_spi;
     int cs_pin;
@@ -1817,6 +1819,8 @@ class RfalRfST25R3911BClass : public RfalRfClass {
     uint32_t st25r3911NoResponseTime_64fcs;
     volatile t_st25r3911Interrupt st25r3911interrupt; /*!< Instance of ST25R3911 interrupt */
     uint32_t timerStopwatchTick;
+    volatile bool isr_pending;
+    volatile bool bus_busy;
 };
 
 #ifdef __cplusplus
