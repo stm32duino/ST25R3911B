@@ -46,6 +46,8 @@ RfalRfST25R3911BClass::RfalRfST25R3911BClass(SPIClass *spi, int cs_pin, int int_
   st25r3911NoResponseTime_64fcs = 0;
   memset((void *)&st25r3911interrupt, 0, sizeof(t_st25r3911Interrupt));
   timerStopwatchTick = 0;
+  isr_pending = false;
+  bus_busy = false;
 }
 
 
@@ -2742,6 +2744,16 @@ ReturnCode RfalRfST25R3911BClass::rfalChipMeasurePowerSupply(uint8_t param, uint
   *result = st25r3911MeasurePowerSupply(param);
 
   return ERR_NONE;
+}
+
+void RfalRfST25R3911BClass::setISRPending(void)
+{
+  isr_pending = true;
+}
+
+bool RfalRfST25R3911BClass::isBusBusy(void)
+{
+  return bus_busy;
 }
 
 
