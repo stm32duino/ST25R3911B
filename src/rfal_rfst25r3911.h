@@ -203,6 +203,23 @@ typedef struct {
   bool    ready;                  /*!< Indicate if Look Up Table is complete and ready for use */
 } rfalAnalogConfigMgmt;
 
+template <typename T>
+struct Callback;
+
+template <typename Ret, typename... Params>
+struct Callback<Ret(Params...)> {
+   template <typename... Args>
+   static Ret callback(Args... args) {
+      return func(args...);
+   }
+   static std::function<Ret(Params...)> func;
+};
+
+template <typename Ret, typename... Params>
+std::function<Ret(Params...)> Callback<Ret(Params...)>::func;
+
+typedef void (*ST25R3911BIrqHandler)(void);
+
 /*
 ******************************************************************************
 * GLOBAL DEFINES
@@ -1645,16 +1662,6 @@ class RfalRfST25R3911BClass : public RfalRfClass {
      */
     void st25r3911CheckForReceivedInterrupts(void);
 
-
-    /*!
-     *****************************************************************************
-     *  \brief  ISR Service routine
-     *
-     *  This function modifies the interrupt
-     *****************************************************************************
-     */
-    void  st25r3911Isr(void);
-
     /*!
      *****************************************************************************
      *  \brief  Enable a given ST25R3911 Interrupt source
@@ -1807,6 +1814,14 @@ class RfalRfST25R3911BClass : public RfalRfClass {
     ReturnCode st25r3911ExecuteCommandAndGetResult(uint8_t cmd, uint8_t resreg, uint8_t sleeptime, uint8_t *result);
     void setISRPending(void);
     bool isBusBusy(void);
+    /*!
+     *****************************************************************************
+     *  \brief  ISR Service routine
+     *
+     *  This function modifies the interrupt
+     *****************************************************************************
+     */
+    void  st25r3911Isr(void);
 
     SPIClass *dev_spi;
     int cs_pin;
@@ -1821,6 +1836,7 @@ class RfalRfST25R3911BClass : public RfalRfClass {
     uint32_t timerStopwatchTick;
     volatile bool isr_pending;
     volatile bool bus_busy;
+    ST25R3911BIrqHandler irq_handler;
 };
 
 #ifdef __cplusplus
