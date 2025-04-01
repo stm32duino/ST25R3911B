@@ -42,6 +42,7 @@
  ******************************************************************************
  */
 
+#if RFAL_FEATURE_NFCV
 /*
 ******************************************************************************
 * LOCAL MACROS
@@ -462,3 +463,5 @@ ReturnCode iso15693PhyVCDCode1Of256(const uint8_t data, uint8_t *outbuffer, uint
 
   return err;
 }
+
+#endif /* RFAL_FEATURE_NFCV */
