@@ -2740,7 +2740,7 @@ ReturnCode RfalRfST25R3911BClass::rfalListenSetState(rfalLmState newSt)
         /*******************************************************************************/
         /* REMARK: Silicon workaround ST25R3911 Errata TDB                             */
         /* RXS and NFCT are triggered very close (specially in higher bitrates).       *
-         * If the interrupt status register is being read when NFCT is trigerred, the  *
+         * If the interrupt status register is being read when NFCT is trigered, the  *
          * IRQ line might go low and NFCT is not signalled on the status register.     *
          * For initial bitrate detection, mask RXS, only wait for NFCT and RXE.        */
         /*******************************************************************************/
@@ -2809,7 +2809,7 @@ ReturnCode RfalRfST25R3911BClass::rfalListenSetState(rfalLmState newSt)
         st25r3911WriteRegister(ST25R3911_REG_RX_CONF1, (tmp | ST25R3911_REG_RX_CONF1_amd_sel));
         /*******************************************************************************/
 
-        /* ReEnable the receiver */
+        /* re-enable the receiver */
         st25r3911ExecuteCommand(ST25R3911_CMD_UNMASK_RECEIVE_DATA);
 
 
