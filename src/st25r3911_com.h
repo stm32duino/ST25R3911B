@@ -471,7 +471,7 @@
 #define ST25R3911_REG_CAP_SENSOR_CONTROL_cs_mcal2             (1U<<5)
 #define ST25R3911_REG_CAP_SENSOR_CONTROL_cs_mcal3             (1U<<6)
 #define ST25R3911_REG_CAP_SENSOR_CONTROL_cs_mcal4             (1U<<7)
-#define ST25R3911_REG_CAP_SENSOR_CONTROL_mask_cs_mcal         (0x1fU<<3)
+#define ST25R3916_REG_CAP_SENSOR_CONTROL_mask_cs_mcal         (0x1fU<<3)
 #define ST25R3911_REG_CAP_SENSOR_CONTROL_shift_cs_mcal        (3U)
 #define ST25R3911_REG_CAP_SENSOR_RESULT_cs_cal_err            (1U<<1)
 #define ST25R3911_REG_CAP_SENSOR_RESULT_cs_cal_end            (1U<<2)

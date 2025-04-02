@@ -229,7 +229,7 @@ ReturnCode RfalRfST25R3911BClass::st25r3911CalibrateCapacitiveSensor(uint8_t *re
   uint8_t    res;
 
   /* Clear Manual calibration values to enable automatic calibration mode */
-  st25r3911ClrRegisterBits(ST25R3911_REG_CAP_SENSOR_CONTROL, ST25R3911_REG_CAP_SENSOR_CONTROL_mask_cs_mcal);
+  st25r3911ClrRegisterBits(ST25R3911_REG_CAP_SENSOR_CONTROL, ST25R3916_REG_CAP_SENSOR_CONTROL_mask_cs_mcal);
 
   /* Execute automatic calibration */
   ret = st25r3911ExecuteCommandAndGetResult(ST25R3911_CMD_CALIBRATE_C_SENSOR, ST25R3911_REG_CAP_SENSOR_RESULT, ST25R3911_TOUT_CALIBRATE_CAP_SENSOR, &res);
